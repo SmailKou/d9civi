@@ -10,7 +10,7 @@ use Drupal\webform\Entity\Webform;
 /**
  * Implements hook_preprocess_HOOK() for page templates.
  */
-function designermakers_install() {
+function designermakers_cron() {
   // Load the webform entity
   $webform = Webform::load('designer_maker_profile');
   if ($webform) {
@@ -20,8 +20,8 @@ function designermakers_install() {
     // Add the desired fields to the elements array
     $elements['product'] = [
       '#type' => 'fieldset',
-      '#title' => 'Product Informations',
-      '#form_key' => 'product_informations',
+      '#title' => t('Product Informations'),
+      '#form_key' => 'product',
       'business_logo' => [
         '#type' => 'managed_file',
         '#title' => t('Business Logo'),
