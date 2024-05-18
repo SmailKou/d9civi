@@ -1,0 +1,90 @@
+<?php declare(strict_types=1);
+
+/**
+ * @file designer makers .module file used to alter some behaviors.
+ */
+
+use Drupal\webform\Utility\WebformElementHelper;
+use Drupal\webform\WebformInterface;
+use Drupal\webform\Entity\Webform;
+Use Drupal\Core\Serialization\Yaml;
+
+/**
+ * Implements hook_preprocess_HOOK() for page templates.
+ */
+function designermakers_install() {
+  // Load the webform entity
+  $webform = Webform::load('designer_maker_profile');
+  if ($webform) {
+    // Get the existing webform elements
+    $elements = $webform->getElementsDecoded();
+
+    // Add the desired fields to the elements array
+    $elements['product'] = [
+      'business_logo' => [
+        '#type' => 'managed_file',
+        '#title' => t('Business Logo'),
+        '#upload_validators' => [
+          'file_validate_extensions' => ['png jpg jpeg gif'],
+        ],
+        '#upload_location' => 'public://business_logos/',
+        '#weight' => 1,
+      ],
+      'tag_line' => [
+        '#type' => 'textfield',
+        '#title' => t('Tag Line'),
+        '#maxlength' => 255,
+        '#size' => 60,
+        '#weight' => 2,
+      ],
+      'intro_paragraph' => [
+        '#type' => 'textarea',
+        '#title' => t('Intro Paragraph'),
+        '#rows' => 5,
+        '#weight' => 3,
+      ],
+      'art_product_images' => [
+        '#type' => 'managed_file',
+        '#title' => t('Art/Product Images'),
+        '#multiple' => TRUE,
+        '#upload_validators' => [
+          'file_validate_extensions' => ['png jpg jpeg gif'],
+        ],
+        '#upload_location' => 'public://art_product_images/',
+        '#weight' => 4,
+      ],
+      'art_category' => [
+        '#type' => 'select',
+        '#title' => t('Art Category'),
+        '#options' => [
+          'painting' => t('Painting'),
+          'sculpture' => t('Sculpture'),
+          'photography' => t('Photography'),
+        ],
+        '#weight' => 5,
+      ],
+      'business_address' => [
+        '#type' => 'textfield',
+        '#title' => t('Business Address'),
+        '#maxlength' => 255,
+        '#size' => 60,
+        '#weight' => 6,
+      ],
+    ];
+
+    // Set the updated elements back to the webform
+    try {
+      WebformElementHelper::convertRenderMarkupToStrings($elements);
+      $webform->setElements($elements);
+      // Save the webform entity
+      $webform->save();
+      \Drupal::messenger()->addStatus(t('Successfully added the elements fields to the webform.'));
+    }
+    catch (Exception $e) {
+      \Drupal::messenger()->addError(t('An error occurred: @message', ['@message' => $e->getMessage()]));
+    }
+  }
+  else {
+    \Drupal::messenger()->addError(t('The specified webform could not be loaded.'));
+  }
+}

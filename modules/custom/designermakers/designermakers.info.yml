@@ -1,0 +1,9 @@
+name: Designer Makers
+type: module
+description: A custom module that add/alter the behaviors for a designer maker.
+package: Custom
+core_version_requirement: ^9
+dependencies:
+  - webform
+  - webform_civicrm
+  - file
