@@ -10,4 +10,5 @@ dependencies:
   - drupal:civicrm
   - drupal:civicrmtheme
   - drupal:views
+  - drupal:civicrm_entity
 version: '1.0.0'
