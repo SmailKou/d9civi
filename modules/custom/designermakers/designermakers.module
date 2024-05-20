@@ -4,57 +4,56 @@
  * @file designer makers .module file used to alter some behaviors.
  */
 
-use Civi\Api4\CustomField;
-use Civi\Api4\CustomGroup;
+use Drupal\webform\WebformSubmissionInterface;
 use Civi\Api4\Group;
+use Civi\Api4\GroupContact;
+
 /**
- * Implements hook_install().
+ * Implements hook_webform_submission_presave().
  */
-function designermakers_install() {
-  try {
-    // Check if 'Product' custom group already exists
-    $existingGroup = CRM_Core_DAO::singleValueQuery("
-      SELECT id
-      FROM civicrm_custom_group
-      WHERE title = 'Product'
-    ");
+function designermakers_webform_submission_presave(WebformSubmissionInterface $webform_submission) {
+  // Check if the submission is for the designer maker profile webform
+  if ($webform_submission->getWebform()->id() == 'designer_maker_profile') {
+    \Drupal::service('event_dispatcher')->addListener('webform_submission_insert', 'designermakers_webform_submission_insert');
+  }
+}
 
-    if ($existingGroup) {
-      \Drupal::logger('designermakers')->warning('Product custom group already exists.');
-      return;
+/**
+ * Custom function to add individuals to the "Designer Makers" group after submission.
+ */
+function designermakers_webform_submission_insert(WebformSubmissionInterface $webform_submission) {
+  // Check if the submission is for the specific webform
+  if ($webform_submission->getWebform()->id() == 'designer_maker_profile') {
+    // Get the submission data
+    $data = $webform_submission->getData();
+
+    // Retrieve the CiviCRM contact ID of the newly created individual
+    if (!empty($data['civicrm_1_contact_1_contact_contact_id'])) {
+      $contact_id = $data['civicrm_1_contact_1_contact_contact_id'];
+
+      // Retrieve the "Designer Makers" group ID
+      $group = Group::get()
+        ->addWhere('title', '=', 'Designer Makers')
+        ->execute();
+
+      if ($group->count() > 0) {
+        $group_id = $group[0]['id'];
+
+        // Add the contact to the "Designer Makers" group
+        GroupContact::create()
+          ->addValue('contact_id', $contact_id)
+          ->addValue('group_id', $group_id)
+          ->addValue('status', 'Added')
+          ->execute();
+
+        \Drupal::messenger()->addMessage('The individual has been added to the Designer Makers group.');
+      } else {
+        \Drupal::logger('designermakers')->error('Designer Makers group not found.');
+        \Drupal::messenger()->addMessage('Error: Designer Makers group not found.', 'error');
+      }
+    } else {
+      \Drupal::logger('designermakers')->error('No contact ID found in the form submission.');
+      \Drupal::messenger()->addMessage('Error: No contact ID found in the form submission.', 'error');
     }
-
-    // Create 'Product' custom field group
-    CRM_Core_DAO::executeQuery("
-      INSERT INTO civicrm_custom_group (title, extends, is_active, table_name, name)
-      VALUES ('Product', 'Individual', 1, 'civicrm_value_product', 'Product')
-    ");
-
-    // Retrieve the custom group ID
-    $custom_group_id = CRM_Core_DAO::singleValueQuery("
-      SELECT id
-      FROM civicrm_custom_group
-      WHERE title = 'Product'
-    ");
-
-    // Custom fields for 'Product'
-    $productFields = [
-      ['label' => 'Business Logo', 'data_type' => 'String', 'html_type' => 'File'],
-      ['label' => 'Tag Line', 'data_type' => 'String', 'html_type' => 'Text'],
-      ['label' => 'Product Images', 'data_type' => 'String', 'html_type' => 'File'],
-      ['label' => 'Description', 'data_type' => 'Memo', 'html_type' => 'TextArea'],
-      ['label' => 'Art Category', 'data_type' => 'String', 'html_type' => 'Select'],
-    ];
-
-    foreach ($productFields as $field) {
-      CRM_Core_DAO::executeQuery("
-        INSERT INTO civicrm_custom_field (custom_group_id, label, data_type, html_type, is_active)
-        VALUES ({$custom_group_id}, '{$field['label']}', '{$field['data_type']}', '{$field['html_type']}', 1)
-      ");
-    }
-
-    \Drupal::logger('designermakers')->notice('Operation Successful!');
-  } catch (\Exception $e) {
-    \Drupal::logger('designermakers')->error('Error creating Product custom group: @message', ['@message' => $e->getMessage()]);
   }
 }
