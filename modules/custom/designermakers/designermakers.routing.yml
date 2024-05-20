@@ -1,0 +1,7 @@
+designermakers.admin_form:
+  path: '/admin/config/designermakers/create-custom-group'
+  defaults:
+    _form: '\Drupal\designermakers\Form\DesignermakersAdminForm'
+    _title: 'Create Product Custom Group and Fields'
+  requirements:
+    _permission: 'administer civicrm'
