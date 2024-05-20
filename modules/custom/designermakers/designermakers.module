@@ -4,88 +4,57 @@
  * @file designer makers .module file used to alter some behaviors.
  */
 
-use Drupal\webform\Utility\WebformElementHelper;
-use Drupal\webform\Entity\Webform;
-
+use Civi\Api4\CustomField;
+use Civi\Api4\CustomGroup;
+use Civi\Api4\Group;
 /**
- * Implements hook_cron()
+ * Implements hook_install().
  */
-function designermakers_cron() {
-  // Load the webform entity
-  $webform = Webform::load('designer_maker_profile');
-  if ($webform) {
-    // Get the existing webform elements
-    $elements = $webform->getElementsDecoded();
+function designermakers_install() {
+  try {
+    // Check if 'Product' custom group already exists
+    $existingGroup = CRM_Core_DAO::singleValueQuery("
+      SELECT id
+      FROM civicrm_custom_group
+      WHERE title = 'Product'
+    ");
 
-    // Add the desired fields to the elements array
-    $elements['product'] = [
-      '#type' => 'fieldset',
-      '#title' => t('Product Informations'),
-      '#form_key' => 'product',
-      'business_logo' => [
-        '#type' => 'managed_file',
-        '#title' => t('Business Logo'),
-        '#upload_validators' => [
-          'file_validate_extensions' => ['png jpg jpeg gif'],
-        ],
-        '#upload_location' => 'public://business_logos/',
-        '#weight' => 1,
-      ],
-      'tag_line' => [
-        '#type' => 'textfield',
-        '#title' => t('Tag Line'),
-        '#maxlength' => 255,
-        '#size' => 60,
-        '#weight' => 2,
-      ],
-      'intro_paragraph' => [
-        '#type' => 'textarea',
-        '#title' => t('Intro Paragraph'),
-        '#rows' => 5,
-        '#weight' => 3,
-      ],
-      'art_product_images' => [
-        '#type' => 'managed_file',
-        '#title' => t('Art/Product Images'),
-        '#multiple' => TRUE,
-        '#upload_validators' => [
-          'file_validate_extensions' => ['png jpg jpeg gif'],
-        ],
-        '#upload_location' => 'public://art_product_images/',
-        '#weight' => 4,
-      ],
-      'art_category' => [
-        '#type' => 'select',
-        '#title' => t('Art Category'),
-        '#options' => [
-          'painting' => t('Painting'),
-          'sculpture' => t('Sculpture'),
-          'photography' => t('Photography'),
-        ],
-        '#weight' => 5,
-      ],
-      'business_address' => [
-        '#type' => 'textfield',
-        '#title' => t('Business Address'),
-        '#maxlength' => 255,
-        '#size' => 60,
-        '#weight' => 6,
-      ],
+    if ($existingGroup) {
+      \Drupal::logger('designermakers')->warning('Product custom group already exists.');
+      return;
+    }
+
+    // Create 'Product' custom field group
+    CRM_Core_DAO::executeQuery("
+      INSERT INTO civicrm_custom_group (title, extends, is_active, table_name, name)
+      VALUES ('Product', 'Individual', 1, 'civicrm_value_product', 'Product')
+    ");
+
+    // Retrieve the custom group ID
+    $custom_group_id = CRM_Core_DAO::singleValueQuery("
+      SELECT id
+      FROM civicrm_custom_group
+      WHERE title = 'Product'
+    ");
+
+    // Custom fields for 'Product'
+    $productFields = [
+      ['label' => 'Business Logo', 'data_type' => 'String', 'html_type' => 'File'],
+      ['label' => 'Tag Line', 'data_type' => 'String', 'html_type' => 'Text'],
+      ['label' => 'Product Images', 'data_type' => 'String', 'html_type' => 'File'],
+      ['label' => 'Description', 'data_type' => 'Memo', 'html_type' => 'TextArea'],
+      ['label' => 'Art Category', 'data_type' => 'String', 'html_type' => 'Select'],
     ];
 
-    // Set the updated elements back to the webform
-    try {
-      WebformElementHelper::convertRenderMarkupToStrings($elements);
-      $webform->setElements($elements);
-      // Save the webform entity
-      $webform->save();
-      \Drupal::messenger()->addStatus(t('Successfully added the elements fields to the webform.'));
+    foreach ($productFields as $field) {
+      CRM_Core_DAO::executeQuery("
+        INSERT INTO civicrm_custom_field (custom_group_id, label, data_type, html_type, is_active)
+        VALUES ({$custom_group_id}, '{$field['label']}', '{$field['data_type']}', '{$field['html_type']}', 1)
+      ");
     }
-    catch (Exception $e) {
-      \Drupal::messenger()->addError(t('An error occurred: @message', ['@message' => $e->getMessage()]));
-    }
-  }
-  else {
-    \Drupal::messenger()->addError(t('The specified webform could not be loaded.'));
+
+    \Drupal::logger('designermakers')->notice('Operation Successful!');
+  } catch (\Exception $e) {
+    \Drupal::logger('designermakers')->error('Error creating Product custom group: @message', ['@message' => $e->getMessage()]);
   }
 }

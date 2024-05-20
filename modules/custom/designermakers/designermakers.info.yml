@@ -11,4 +11,5 @@ dependencies:
   - drupal:civicrmtheme
   - drupal:views
   - drupal:civicrm_entity
+  - drupal:webform_ui
 version: '1.0.0'
