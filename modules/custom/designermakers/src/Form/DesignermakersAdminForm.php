@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file Custom Form to trigger the creation of some basic custom fields.
+ * @file Custom Form to trigger the creation of some CiviCRM basic entities: a Group and a CustomGroup and its custom fields.
  */
 namespace Drupal\designermakers\Form;
 
@@ -81,6 +81,31 @@ class DesignermakersAdminForm extends FormBase {
         \Drupal::logger('designermakers')->error('Error creating Product custom group: @message', ['@message' => $e->getMessage()]);
         \Drupal::messenger()->addMessage('Error creating Product custom group: ' . $e->getMessage(), 'error');
       }
+
+      // Check if the "Designer Makers" group already exists
+      try {
+        $existingGroup = \Civi\Api4\Group::get()
+          ->addWhere('title', '=', 'Designer Makers')
+          ->execute();
+
+        if ($existingGroup->count() == 0) {
+          // Create the "Designer Makers" group
+          \Civi\Api4\Group::create()
+            ->addValue('title', 'Designer Makers')
+            ->addValue('name', 'designer_makers')
+            ->addValue('description', 'Group for Designer Makers')
+            ->addValue('is_active', 1)
+            ->execute();
+
+          \Drupal::messenger()->addMessage('Designer Makers group created successfully!', 'status');
+        } else {
+          \Drupal::messenger()->addMessage('Designer Makers group already exists.', 'warning');
+        }
+      } catch (\Exception $e) {
+        \Drupal::logger('designermakers')->error('Error creating Designer Makers group: @message', ['@message' => $e->getMessage()]);
+        \Drupal::messenger()->addMessage('Error creating Designer Makers group: ' . $e->getMessage(), 'error');
+      }
+
     } else {
       \Drupal::messenger()->addMessage('You do not have permission to perform this action.', 'error');
     }
