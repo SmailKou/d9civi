@@ -33,7 +33,8 @@ class ProductSubmissionService {
     ]);
 
     if (empty($contact['values'])) {
-      \Drupal::logger('mymodule')->error('No contact found for user ID: @uid', ['@uid' => $user_id]);
+      \Drupal::logger('designermakers')->error('No contact found for user ID: @uid', ['@uid' => $user_id]);
+      \Drupal::messenger()->addError(t('No contact found for user ID: @uid', ['@uid' => $user_id]));
       return;
     }
 
@@ -41,7 +42,6 @@ class ProductSubmissionService {
 
     // Retrieve the submission values
     $values = $webform_submission->getData();
-    dump($values);
     $product_fields = [
       'custom_27' => $values['civicrm_1_contact_1_cg7_custom_27'],
       'custom_28' => $values['civicrm_1_contact_1_cg7_custom_28'],
@@ -50,16 +50,23 @@ class ProductSubmissionService {
       'custom_31' => $values['civicrm_1_contact_1_cg7_custom_31'],
     ];
 
-    // Save the custom values to the contact's product custom group
-    foreach ($product_fields as $field_name => $field_value) {
-      civicrm_api3('CustomValue', 'create', [
-        'entity_id' => $contact_id,
-        'entity_table' => 'civicrm_contact',
-        $field_name => $field_value,
-      ]);
-    }
+    // Create a new product entry and save the custom values
+    $result = civicrm_api3('CustomValue', 'create', [
+      'entity_id' => $contact_id,
+      'entity_table' => 'civicrm_contact',
+      'custom_27' => $product_fields['custom_27'],
+      'custom_28' => $product_fields['custom_28'],
+      'custom_29' => $product_fields['custom_29'],
+      'custom_30' => $product_fields['custom_30'],
+      'custom_31' => $product_fields['custom_31'],
+    ]);
 
-    \Drupal::logger('designermakers')->info('Product data submitted for contact ID: @cid', ['@cid' => $contact_id]);
-    \Drupal::messenger()->addMessage('Product data submitted for contact ID: @cid');
+    if ($result['is_error']) {
+      \Drupal::logger('designermakers')->error('Error creating product for contact ID: @cid', ['@cid' => $contact_id]);
+      \Drupal::messenger()->addError(t('Error creating product for contact ID: @cid', ['@cid' => $contact_id]));
+    } else {
+      \Drupal::logger('designermakers')->info('Product data submitted for contact ID: @cid', ['@cid' => $contact_id]);
+      \Drupal::messenger()->addStatus(t('Product data submitted for contact ID: @cid', ['@cid' => $contact_id]));
+    }
   }
 }
