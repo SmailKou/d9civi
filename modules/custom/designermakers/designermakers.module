@@ -4,9 +4,15 @@
  * @file designer makers .module file used to alter some behaviors.
  */
 
+use Civi\Api4\CustomValue;
 use Drupal\webform\WebformSubmissionInterface;
 use Civi\Api4\Group;
 use Civi\Api4\GroupContact;
+
+require_once './sites/default/civicrm.settings.php';
+require_once 'CRM/Core/Config.php';
+$config = CRM_Core_Config::singleton();
+require_once 'api/api.php';
 
 /**
  * Implements hook_webform_submission_presave().
@@ -16,12 +22,29 @@ function designermakers_webform_submission_presave(WebformSubmissionInterface $w
   if ($webform_submission->getWebform()->id() == 'designer_maker_profile') {
     \Drupal::service('event_dispatcher')->addListener('webform_submission_insert', 'designermakers_webform_submission_insert');
   }
+  // Check if the submission is for the designer maker profile webform
+  if ($webform_submission->getWebform()->id() == 'add_product') {
+    \Drupal::service('event_dispatcher')->addListener('webform_submission_insert', 'designermakers_webform_submission_insert');
+  }
 }
 
 /**
  * Custom function to add individuals to the "Designer Makers" group after submission.
  */
 function designermakers_webform_submission_insert(WebformSubmissionInterface $webform_submission) {
+  // Check if the submission is from the "Designer Maker Product" webform
+  if ($webform_submission->getWebform()->id() == 'add_product') {
+    try {
+      // Get the product submission service
+      $product_submission_service = \Drupal::service('designermakers.product_submission_service');
+      // Call the service method to handle the submission
+      $product_submission_service->submitProduct($webform_submission);
+      \Drupal::messenger()->addMessage('Product associated well to its Designer Maker! ');
+    } catch (Exception $e) {
+      \Drupal::messenger()->addMessage("Error occured : @message", ['@message' => $e->getMessage()]);
+    }
+  }
+
   // Check if the submission is for the specific webform
   if ($webform_submission->getWebform()->id() == 'designer_maker_profile') {
     // Get the submission data

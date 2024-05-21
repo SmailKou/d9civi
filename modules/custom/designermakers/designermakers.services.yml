@@ -1,0 +1,4 @@
+services:
+  designermakers.product_submission_service:
+    class: Drupal\designermakers\Service\ProductSubmissionService
+    arguments: ['@current_user', '@entity_type.manager']
