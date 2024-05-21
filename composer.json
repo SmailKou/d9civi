@@ -16,9 +16,9 @@
     ],
     "require": {
         "ext-pdo": "*",
-        "civicrm/civicrm-core": "~5.55",
-        "civicrm/civicrm-drupal-8": "~5.55",
-        "civicrm/civicrm-packages": "~5.55",
+        "civicrm/civicrm-core": "^5.68",
+        "civicrm/civicrm-drupal-8": "^5.73",
+        "civicrm/civicrm-packages": "^5.73",
         "civicrm/cv": "^0.3.27",
         "composer/installers": "^1.9",
         "drupal/admin_toolbar": "^3.2",
@@ -30,7 +30,8 @@
         "drupal/views_bulk_operations": "^4.2",
         "drupal/webform": "^6.1",
         "drupal/webform_civicrm": "^6.2",
-        "drush/drush": "^11.6"
+        "drush/drush": "^11.6",
+        "ext-json": "*"
     },
     "conflict": {
         "drupal/drupal": "*"
