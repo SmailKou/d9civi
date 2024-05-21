@@ -2,17 +2,15 @@
 
 namespace Drupal\designermakers\Service;
 
-use CRM_Core_Config;
 use Drupal\webform\WebformSubmissionInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Civi\Api4\CustomValue;
+use CiviCRM_API3_Exception;
+use Drupal\Core\Database\Database;
 
-require_once './sites/default/civicrm.settings.php';
-require_once 'CRM/Core/Config.php';
-$config = CRM_Core_Config::singleton();
-require_once 'api/api.php';
-
+/**
+ * A custom service that adds new products and links them to its owners based on authenticated designer maker.
+ */
 class ProductSubmissionService {
 
   protected $currentUser;
@@ -24,49 +22,48 @@ class ProductSubmissionService {
   }
 
   public function submitProduct(WebformSubmissionInterface $webform_submission) {
-    $user_id = $this->currentUser->id();
+    try {
+      $user_id = $this->currentUser->id();
 
-    // Get the contact ID associated with the current user
-    $contact = civicrm_api3('UFMatch', 'get', [
-      'sequential' => 1,
-      'uf_id' => $user_id,
-    ]);
+      // Get the contact ID associated with the current user
+      $contact = civicrm_api3('UFMatch', 'get', [
+        'sequential' => 1,
+        'uf_id' => $user_id,
+      ]);
 
-    if (empty($contact['values'])) {
-      \Drupal::logger('designermakers')->error('No contact found for user ID: @uid', ['@uid' => $user_id]);
-      \Drupal::messenger()->addError(t('No contact found for user ID: @uid', ['@uid' => $user_id]));
-      return;
-    }
+      if (empty($contact['values'])) {
+        \Drupal::logger('designermakers')->error('No contact found for user ID: @uid', ['@uid' => $user_id]);
+        \Drupal::messenger()->addError(t('No contact found for user ID: @uid', ['@uid' => $user_id]));
+        return;
+      }
 
-    $contact_id = $contact['values'][0]['contact_id'];
+      $contact_id = $contact['values'][0]['contact_id'];
 
-    // Retrieve the submission values
-    $values = $webform_submission->getData();
-    $product_fields = [
-      'custom_27' => $values['civicrm_1_contact_1_cg7_custom_27'],
-      'custom_28' => $values['civicrm_1_contact_1_cg7_custom_28'],
-      'custom_29' => $values['civicrm_1_contact_1_cg7_custom_29'],
-      'custom_30' => $values['civicrm_1_contact_1_cg7_custom_30'],
-      'custom_31' => $values['civicrm_1_contact_1_cg7_custom_31'],
-    ];
+      // Retrieve the submission values
+      $values = $webform_submission->getData();
+      $product_fields = [
+        'business_logo_27' => $values['civicrm_1_contact_1_cg7_custom_27'],
+        'tag_line_28' => $values['civicrm_1_contact_1_cg7_custom_28'],
+        'product_images_29' => $values['civicrm_1_contact_1_cg7_custom_29'],
+        'description_30' => $values['civicrm_1_contact_1_cg7_custom_30'],
+        'art_category_31' => $values['civicrm_1_contact_1_cg7_custom_31'],
+      ];
 
-    // Create a new product entry and save the custom values
-    $result = civicrm_api3('CustomValue', 'create', [
-      'entity_id' => $contact_id,
-      'entity_table' => 'civicrm_contact',
-      'custom_27' => $product_fields['custom_27'],
-      'custom_28' => $product_fields['custom_28'],
-      'custom_29' => $product_fields['custom_29'],
-      'custom_30' => $product_fields['custom_30'],
-      'custom_31' => $product_fields['custom_31'],
-    ]);
+      // Insert a new record into the civicrm_value_product_7 table
+      $connection = Database::getConnection();
+      $connection->insert('civicrm_value_product_7')
+        ->fields(array_merge(['entity_id' => $contact_id], $product_fields))
+        ->execute();
 
-    if ($result['is_error']) {
-      \Drupal::logger('designermakers')->error('Error creating product for contact ID: @cid', ['@cid' => $contact_id]);
-      \Drupal::messenger()->addError(t('Error creating product for contact ID: @cid', ['@cid' => $contact_id]));
-    } else {
-      \Drupal::logger('designermakers')->info('Product data submitted for contact ID: @cid', ['@cid' => $contact_id]);
-      \Drupal::messenger()->addStatus(t('Product data submitted for contact ID: @cid', ['@cid' => $contact_id]));
+      \Drupal::logger('designermakers')->info('Product data submitted for user ID: @uid', ['@uid' => $user_id]);
+      \Drupal::messenger()->addStatus(t('Product data submitted for Designer Maker: @uid', ['@uid' => $user_id]));
+
+    } catch (CiviCRM_API3_Exception $e) {
+      \Drupal::logger('designermakers')->error('CiviCRM API Error: @message', ['@message' => $e->getMessage()]);
+      \Drupal::messenger()->addError(t('CiviCRM API Error: @message', ['@message' => $e->getMessage()]));
+    } catch (\Exception $e) {
+      \Drupal::logger('designermakers')->error('Error: @message', ['@message' => $e->getMessage()]);
+      \Drupal::messenger()->addError(t('Error: @message', ['@message' => $e->getMessage()]));
     }
   }
 }
