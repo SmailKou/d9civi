@@ -1,0 +1,6 @@
+.idea/
+.htaccess
+vendor/
+core/
+composer.lock
+
