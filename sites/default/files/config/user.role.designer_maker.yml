@@ -1,0 +1,9 @@
+uuid: 5375b093-d412-45a0-8f35-124908b0fc8a
+langcode: en
+status: true
+dependencies: {  }
+id: designer_maker
+label: 'Designer Maker'
+weight: 4
+is_admin: false
+permissions: {  }

@@ -1,0 +1,14 @@
+uuid: 557a8044-e0f7-411a-a83f-2bdc99e856c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.designer_maker
+  module:
+    - user
+id: user_remove_role_action.designer_maker
+label: 'Remove the Designer Maker role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: designer_maker

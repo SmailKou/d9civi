@@ -1,0 +1,14 @@
+uuid: 55bf0354-2b76-4466-a475-f8b3d548ef31
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.designer_maker
+  module:
+    - user
+id: user_add_role_action.designer_maker
+label: 'Add the Designer Maker role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: designer_maker

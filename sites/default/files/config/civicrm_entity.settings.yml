@@ -1,0 +1,8 @@
+_core:
+  default_config_hash: ALrmD1SCpEpTvkP6L2jqsOPnHOGPciQIIu3lgtjGHtU
+filter_format: plain_text
+enabled_entity_types:
+  civicrm_contact: civicrm_contact
+  civicrm_custom_field: civicrm_custom_field
+  civicrm_group: civicrm_group
+disable_hooks: false

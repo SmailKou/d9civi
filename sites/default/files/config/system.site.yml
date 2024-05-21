@@ -1,0 +1,14 @@
+_core:
+  default_config_hash: VDJxTZtQR21qB4lvOq8zszJZLvLKrSPQpdn2E3T71Ww
+langcode: en
+uuid: a7541860-ae7a-4403-bcd3-22f6815c6445
+name: 'Drupal9 Test'
+mail: info@example.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /designer-makers
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
