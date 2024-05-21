@@ -4,7 +4,6 @@
  * @file designer makers .module file used to alter some behaviors.
  */
 
-use Civi\Api4\CustomValue;
 use Drupal\webform\WebformSubmissionInterface;
 use Civi\Api4\Group;
 use Civi\Api4\GroupContact;
@@ -78,5 +77,18 @@ function designermakers_webform_submission_insert(WebformSubmissionInterface $we
       \Drupal::logger('designermakers')->error('No contact ID found in the form submission.');
       \Drupal::messenger()->addMessage('Error: No contact ID found in the form submission.', 'error');
     }
+  }
+}
+
+/**
+ * Implements hook_install().
+ */
+function designermakers_install() {
+  // Dropping useless index
+  try {
+    $connection = \Drupal::database();
+    $connection->query('ALTER TABLE civicrm_value_product_7 DROP INDEX unique_entity_id');
+  } catch (Exception $exception) {
+    Drupal::logger('designermakers')->error('Error occured during database update: @error', ['@error' => $exception->getMessage()]);
   }
 }
