@@ -18,6 +18,14 @@ elements: |-
   civicrm_1_contact_1_fieldset_fieldset:
     '#type': fieldset
     '#title': 'Contact 1'
+    '#attributes':
+      class:
+        - d-none
+      style: 'display: none;'
+    '#format_attributes':
+      class:
+        - d-none
+      style: 'display: none;'
     '#form_key': civicrm_1_contact_1_fieldset_fieldset
   civicrm_1_contact_1_cg7_fieldset:
     '#type': fieldset
