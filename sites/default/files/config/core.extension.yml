@@ -18,6 +18,7 @@ module:
   datetime: 0
   dblog: 0
   designermakers: 0
+  designershub: 0
   dynamic_page_cache: 0
   editor: 0
   field: 0
@@ -46,6 +47,9 @@ module:
   tour: 0
   update: 0
   user: 0
+  views_aggregator: 0
+  views_aggregator_more_functions: 0
+  views_bulk_operations: 0
   views_ui: 0
   webform: 0
   webform_civicrm: 0
