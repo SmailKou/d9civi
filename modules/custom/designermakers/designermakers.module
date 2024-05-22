@@ -78,8 +78,8 @@ function designermakers_webform_submission_insert(WebformSubmissionInterface $we
 /**
  * Implements hook_install().
  */
-function designermakers_install() {
-  // Dropping useless index
+function designermakers_update_8002() {
+  // Dropping useless index on update
   try {
     $connection = \Drupal::database();
     $connection->query('ALTER TABLE civicrm_value_product_7 DROP INDEX unique_entity_id');
