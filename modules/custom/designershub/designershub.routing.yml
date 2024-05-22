@@ -1,0 +1,8 @@
+designershub.designer_maker_modal:
+  path: '/designer-maker-modal/{designer_maker_id}'
+  defaults:
+    _controller: '\Drupal\designershub\Controller\DesignerMakerProfile::modal'
+    _title: 'Designer Maker Modal'
+  requirements:
+    _permission: 'access content'
+    _format: 'json'

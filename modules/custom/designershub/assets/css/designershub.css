@@ -1,0 +1,40 @@
+#designer-maker-modal {
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 50%;
+  height: auto;
+  max-height: 80%;
+  overflow-y: auto;
+  margin: auto;
+}
+
+#designer-maker-modal h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+#designer-maker-modal p {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #555;
+}
+
+#designer-maker-modal a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #0056b3;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+#designer-maker-modal a:hover {
+  background-color: #004494;
+}

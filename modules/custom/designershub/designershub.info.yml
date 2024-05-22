@@ -1,0 +1,11 @@
+name: 'Designers Hub'
+type: module
+description: 'Custom Module to interact with CiviCRM for Designer Makers'
+core_version_requirement: ^8 || ^9
+package: Custom
+dependencies:
+  - drupal:civicrm
+  - drupal:views
+  - drupal:webform
+  - drupal:views_bulk_operations
+version: '1.0.0'

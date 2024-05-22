@@ -1,0 +1,10 @@
+designershub:
+  version: 1.x
+  css:
+    theme:
+      assets/css/designershub.css: {}
+  js:
+    assets/js/designershub.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.ui.dialog

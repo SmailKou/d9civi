@@ -1,0 +1,18 @@
+<ul>
+  {% for designer_maker in designer_makers %}
+    <li>
+      <a href="#" class="designer-maker-link" data-id="{{ designer_maker.id }}">{{ designer_maker.display_name }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<!-- Modal template -->
+<div id="designer-maker-modal" style="display:none;">
+  <div class="designer-maker-details">
+    <h2>{{ designer_maker.display_name }}</h2>
+    <p><strong>Email:</strong> {{ designer_maker.email }}</p>
+    <p><strong>Phone:</strong> {{ designer_maker.phone }}</p>
+    <p><strong>Address:</strong> {{ designer_maker.address }}</p>
+    <a href="{{ url('designershub.designer_maker_profile', {'designer_maker_id': designer_maker.id}) }}">Visit full profile</a>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<?php declare(strict_types=1);
+
+/**
+ * @file designershub .module file used to add/alter some behaviors.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function designershub_theme() {
+  return [
+    'designer_maker_list' => [
+      'variables' => [
+        'designer_makers' => [],
+      ],
+    ],
+    'designer_maker_modal' => [
+      'variables' => [
+        'designer_maker' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for block templates.
+ */
+function designershub_page_attachments_alter(&$variables) {
+  $variables['#attached']['library'][] = 'designershub/designershub';
+}
+
+/**
+ * Implements hook_preprocess_html() for html templates.
+ */
+function designershub_preprocess_html(array &$variables) {
+  // Adding a modal container to the page.
+  $modal_container = '<div id="designer-maker-modal" class="d-none"></div>';
+
+  // Inject the modal container directly into the body of the HTML.
+  $variables['page_bottom'][] = [
+    '#type' => 'markup',
+    '#markup' => $modal_container,
+  ];
+}
