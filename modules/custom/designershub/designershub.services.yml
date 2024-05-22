@@ -1,0 +1,6 @@
+services:
+  designershub.user_login_subscriber:
+    class: Drupal\designershub\EventSubscriber\UserLoginSubscriber
+    arguments: ['@current_user', '@session_manager', '@session']
+    tags:
+      - { name: event_subscriber }
