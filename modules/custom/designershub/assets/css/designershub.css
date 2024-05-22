@@ -38,3 +38,19 @@
 #designer-maker-modal a:hover {
   background-color: #004494;
 }
+
+.designer-maker-profile {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.designer-maker-profile h1 {
+  font-size: 2rem;
+  color: #222;
+}
+
+.designer-maker-profile p {
+  font-size: 1rem;
+  color: #555;
+}

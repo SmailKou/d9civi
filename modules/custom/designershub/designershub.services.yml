@@ -1,3 +1,0 @@
-services:
-  designershub.civicrm_service:
-    class: Drupal\designershub\Service\CiviCrmService

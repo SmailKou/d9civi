@@ -39,6 +39,20 @@ class DesignerMakerProfile extends ControllerBase {
     return new JsonResponse($designer_maker);
   }
 
+  public function profile($designer_maker_id) {
+    // Initialize CiviCRM
+    $this->civicrm->initialize();
+
+    // Fetching Designer Maker details from CiviCRM
+    $designer_maker = $this->fetchDesignerMakerDetails($designer_maker_id);
+
+    // Return a render array with the custom template and fetched data
+    return [
+      '#theme' => 'designer_maker_profile',
+      '#designer_maker' => $designer_maker,
+    ];
+  }
+
   protected function fetchDesignerMakerDetails($designer_maker_id) {
     try {
       // Fetching the Designer Maker details from CiviCRM using the API

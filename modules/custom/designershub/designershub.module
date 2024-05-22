@@ -9,12 +9,8 @@
  */
 function designershub_theme() {
   return [
-    'designer_maker_list' => [
-      'variables' => [
-        'designer_makers' => [],
-      ],
-    ],
-    'designer_maker_modal' => [
+    'designer_maker_profile' => [
+      'template' => 'designer-maker-profile',
       'variables' => [
         'designer_maker' => [],
       ],

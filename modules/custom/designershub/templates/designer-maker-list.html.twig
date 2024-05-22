@@ -1,12 +1,3 @@
-<ul>
-  {% for designer_maker in designer_makers %}
-    <li>
-      <a href="#" class="designer-maker-link" data-id="{{ designer_maker.id }}">{{ designer_maker.display_name }}</a>
-    </li>
-  {% endfor %}
-</ul>
-
-<!-- Modal template -->
 <div id="designer-maker-modal" style="display:none;">
   <div class="designer-maker-details">
     <h2>{{ designer_maker.display_name }}</h2>

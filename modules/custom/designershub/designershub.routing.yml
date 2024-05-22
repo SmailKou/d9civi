@@ -6,3 +6,11 @@ designershub.designer_maker_modal:
   requirements:
     _permission: 'access content'
     _format: 'json'
+
+designershub.designer_maker_profile:
+  path: '/designer-makers/{designer_maker_id}'
+  defaults:
+    _controller: '\Drupal\designershub\Controller\DesignerMakerProfile::profile'
+    _title: 'Designer Maker Profile'
+  requirements:
+    _permission: 'access content'
