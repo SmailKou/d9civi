@@ -9,44 +9,41 @@ namespace Drupal\designershub\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class DesignerMakerProfile extends ControllerBase {
 
-  protected $requestStack;
   protected $civicrm;
 
-  public function __construct(RequestStack $request_stack, $civicrm) {
-    $this->requestStack = $request_stack;
+  public function __construct($civicrm) {
     $this->civicrm = $civicrm;
   }
 
+  /**
+   * Injecting dependencies
+   */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('request_stack'),
-      $container->get('civicrm')
-    );
+    return new static ($container->get('civicrm'));
   }
 
+  /**
+   * fetching data for modal.
+   */
   public function modal($designer_maker_id) {
-    // Initialize CiviCRM
     $this->civicrm->initialize();
 
-    // Fetching Designer Maker details from CiviCRM
     $designer_maker = $this->fetchDesignerMakerDetails($designer_maker_id);
 
-    // Return a JSON response with the data
     return new JsonResponse($designer_maker);
   }
 
+  /**
+   * fetching data for full profile page.
+   */
   public function profile($designer_maker_id) {
-    // Initialize CiviCRM
     $this->civicrm->initialize();
 
-    // Fetching Designer Maker details from CiviCRM
     $designer_maker = $this->fetchDesignerMakerDetails($designer_maker_id);
 
-    // Return a render array with the custom template and fetched data
     return [
       '#theme' => 'designer_maker_profile',
       '#designer_maker' => $designer_maker,
