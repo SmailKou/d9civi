@@ -1,0 +1,12 @@
+<div class="latest-designer-makers">
+  <h2>Latest Designer Makers</h2>
+  <ul>
+    {% if designer_makers %}
+      {% for designer_maker in designer_makers %}
+        <li>{{ designer_maker.display_name }}</li>
+      {% endfor %}
+    {% else %}
+      <li>No designer makers found.</li>
+    {% endif %}
+  </ul>
+</div>

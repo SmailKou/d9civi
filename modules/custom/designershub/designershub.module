@@ -15,6 +15,12 @@ function designershub_theme() {
         'designer_maker' => [],
       ],
     ],
+    'latest_designer_makers' => [
+      'template' => 'latest-designer-makers',
+      'variables' => [
+        'designer_makers' => [],
+      ],
+    ],
   ];
 }
 
