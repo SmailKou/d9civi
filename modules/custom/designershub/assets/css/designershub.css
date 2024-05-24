@@ -9,6 +9,7 @@
   max-height: 80%;
   overflow-y: auto;
   margin: auto;
+  display: none;
 }
 
 #designer-maker-modal h2 {
@@ -40,17 +41,76 @@
 }
 
 .designer-maker-profile {
-  padding: 20px;
-  background-color: #f9f9f9;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: Arial, sans-serif;
 }
 
-.designer-maker-profile h1 {
+.profile-header {
+  position: relative;
+  text-align: center;
+  background-color: #f0f0f0;
+}
+
+.profile-cover-photo {
+  height: 200px;
+  background: url('/modules/custom/designershub/assets/img/CEPR-logo-solid-blue-RGB.png') no-repeat center center;
+  background-size: cover;
+}
+
+.profile-info {
+  position: relative;
+  padding: 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: url('/modules/custom/designershub/assets/img/profile-icon-9.png') no-repeat center center;
+  background-size: cover;
+  border: 4px solid #fff;
+  position: absolute;
+  top: -75px;
+  left: calc(50% - 75px);
+}
+
+.profile-details {
+  margin-top: 80px;
+}
+
+.profile-details h1 {
   font-size: 2rem;
-  color: #222;
+  color: #333;
 }
 
-.designer-maker-profile p {
+.profile-details p {
   font-size: 1rem;
-  color: #555;
+  color: #666;
+}
+
+.profile-body {
+  padding: 20px;
+}
+
+.profile-address {
+  margin-top: 20px;
+}
+
+.profile-address h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.profile-address p {
+  font-size: 1rem;
+  color: #666;
+  margin: 5px 0;
 }

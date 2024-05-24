@@ -56,7 +56,6 @@ class DesignerMakerProfile extends ControllerBase {
       $result = civicrm_api3('Contact', 'get', [
         'sequential' => 1,
         'id' => $designer_maker_id,
-        'return' => ['id', 'display_name', 'email', 'phone', 'address'],
       ]);
 
       if (!empty($result['values'])) {
