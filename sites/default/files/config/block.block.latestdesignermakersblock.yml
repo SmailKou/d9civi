@@ -1,0 +1,20 @@
+uuid: 2b215021-8c65-49ad-832a-e20d30826db7
+langcode: en
+status: true
+dependencies:
+  module:
+    - designershub
+  theme:
+    - olivero
+id: latestdesignermakersblock
+theme: olivero
+region: content_below
+weight: 0
+provider: null
+plugin: latest_designer_makers_block
+settings:
+  id: latest_designer_makers_block
+  label: 'Latest Designer Makers Block'
+  label_display: visible
+  provider: designershub
+visibility: {  }

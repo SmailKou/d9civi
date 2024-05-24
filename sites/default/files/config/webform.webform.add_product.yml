@@ -15,68 +15,68 @@ title: 'Add Product'
 description: 'A form for adding new business maker&#39;s product.'
 category: ''
 elements: |-
-  civicrm_1_contact_1_fieldset_fieldset:
-    '#type': fieldset
-    '#title': 'Contact 1'
-    '#attributes':
-      class:
-        - d-none
-      style: 'display: none;'
-    '#format_attributes':
-      class:
-        - d-none
-      style: 'display: none;'
-    '#form_key': civicrm_1_contact_1_fieldset_fieldset
-  civicrm_1_contact_1_cg7_fieldset:
+  civicrm_1_contact_1_cg8_fieldset:
     '#type': fieldset
     '#title': Product
-    '#form_key': civicrm_1_contact_1_cg7_fieldset
-    '#required': true
-    civicrm_1_contact_1_cg7_custom_27:
+    '#form_key': civicrm_1_contact_1_cg8_fieldset
+    civicrm_1_contact_1_cg8_custom_32:
       '#type': managed_file
       '#data_type': String
-      '#form_key': civicrm_1_contact_1_cg7_custom_27
-      '#parent': civicrm_1_contact_1_cg7_fieldset
+      '#form_key': civicrm_1_contact_1_cg8_custom_32
+      '#parent': civicrm_1_contact_1_cg8_fieldset
       '#extra': {  }
       '#title': 'Business Logo'
-      '#required': true
-    civicrm_1_contact_1_cg7_custom_28:
+    civicrm_1_contact_1_cg8_custom_33:
       '#type': textfield
       '#data_type': String
-      '#form_key': civicrm_1_contact_1_cg7_custom_28
+      '#form_key': civicrm_1_contact_1_cg8_custom_33
       '#extra':
         width: 20
-      '#parent': civicrm_1_contact_1_cg7_fieldset
+      '#parent': civicrm_1_contact_1_cg8_fieldset
       '#title': 'Tag Line'
-      '#required': true
-    civicrm_1_contact_1_cg7_custom_29:
+    civicrm_1_contact_1_cg8_custom_34:
       '#type': managed_file
       '#data_type': String
-      '#form_key': civicrm_1_contact_1_cg7_custom_29
-      '#parent': civicrm_1_contact_1_cg7_fieldset
+      '#form_key': civicrm_1_contact_1_cg8_custom_34
+      '#parent': civicrm_1_contact_1_cg8_fieldset
       '#extra': {  }
       '#title': 'Product Images'
-      '#required': true
-    civicrm_1_contact_1_cg7_custom_30:
+    civicrm_1_contact_1_cg8_custom_35:
       '#type': textarea
       '#data_type': Memo
       '#extra':
         cols: 60
         rows: 4
-      '#form_key': civicrm_1_contact_1_cg7_custom_30
-      '#parent': civicrm_1_contact_1_cg7_fieldset
+      '#form_key': civicrm_1_contact_1_cg8_custom_35
+      '#parent': civicrm_1_contact_1_cg8_fieldset
       '#title': Description
-      '#required': true
-    civicrm_1_contact_1_cg7_custom_31:
+    civicrm_1_contact_1_cg8_custom_36:
       '#type': civicrm_options
       '#data_type': String
       '#extra':
         aslist: 1
-      '#form_key': civicrm_1_contact_1_cg7_custom_31
-      '#parent': civicrm_1_contact_1_cg7_fieldset
+        items: |-
+          painting|Painting
+          sculpture|Sculpture
+          photography|Photography
+          digital_art|Digital Art
+          mixed_media|Mixed Media
+      '#form_key': civicrm_1_contact_1_cg8_custom_36
+      '#options':
+        painting: Painting
+        sculpture: Sculpture
+        photography: Photography
+        digital_art: 'Digital Art'
+        mixed_media: 'Mixed Media'
+      '#parent': civicrm_1_contact_1_cg8_fieldset
       '#title': 'Art Category'
       '#civicrm_live_options': 1
-      '#options': {  }
+  civicrm_1_contact_1_contact_contact_id:
+    '#type': hidden
+    '#form_key': civicrm_1_contact_1_contact_contact_id
+    '#parent': civicrm_1_contact_1_fieldset_fieldset
+    '#extra': {  }
+    '#title': 'Contact ID'
 css: ''
 javascript: ''
 settings:
@@ -270,7 +270,6 @@ handlers:
     conditions: {  }
     weight: null
     settings:
-      disable: 'Leave Fields and Save Settings'
       nid: 1
       number_of_contacts: '1'
       1_contact_type: individual
@@ -291,7 +290,7 @@ handlers:
       civicrm_1_contact_1_contact_preferred_language: 0
       civicrm_1_contact_1_contact_communication_style_id: 0
       civicrm_1_contact_1_contact_image_url: 0
-      civicrm_1_contact_1_contact_contact_id: 0
+      civicrm_1_contact_1_contact_contact_id: create_civicrm_webform_element
       civicrm_1_contact_1_contact_user_id: 0
       civicrm_1_contact_1_contact_external_identifier: 0
       civicrm_1_contact_1_contact_source: 0
@@ -300,13 +299,13 @@ handlers:
       civicrm_1_contact_1_contact_is_deceased: 0
       civicrm_1_contact_1_contact_deceased_date: 0
       contact_1_settings_matching_rule: Unsupervised
-      contact_1_number_of_cg7: '1'
-      contact_1_settings_dynamic_custom_cg7: 1
-      civicrm_1_contact_1_cg7_custom_27: create_civicrm_webform_element
-      civicrm_1_contact_1_cg7_custom_28: create_civicrm_webform_element
-      civicrm_1_contact_1_cg7_custom_29: create_civicrm_webform_element
-      civicrm_1_contact_1_cg7_custom_30: create_civicrm_webform_element
-      civicrm_1_contact_1_cg7_custom_31: create_civicrm_webform_element
+      contact_1_number_of_cg8: '1'
+      contact_1_settings_dynamic_custom_cg8: 1
+      civicrm_1_contact_1_cg8_custom_32: create_civicrm_webform_element
+      civicrm_1_contact_1_cg8_custom_33: create_civicrm_webform_element
+      civicrm_1_contact_1_cg8_custom_34: create_civicrm_webform_element
+      civicrm_1_contact_1_cg8_custom_35: create_civicrm_webform_element
+      civicrm_1_contact_1_cg8_custom_36: create_civicrm_webform_element
       contact_1_number_of_other: '0'
       contact_1_number_of_address: '0'
       contact_1_number_of_phone: '0'
@@ -352,8 +351,8 @@ handlers:
                 contact_sub_type: {  }
                 webform_label: 'Contact 1'
             matching_rule: Unsupervised
-            number_of_cg7: '1'
-            dynamic_custom_cg7: 1
+            number_of_cg8: '1'
+            dynamic_custom_cg8: 1
             number_of_other: '0'
             number_of_address: '0'
             number_of_phone: '0'
