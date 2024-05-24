@@ -1,0 +1,6 @@
+designer_makers_admin_form.admin:
+  title: 'Civicrm config'
+  description: 'Generate civicrm custom groups and fields'
+  parent: civicrm.admin_config_civicrm
+  route_name: designermakers.admin_form
+  weight: 100
