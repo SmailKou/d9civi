@@ -4,6 +4,11 @@
  * @file designer makers .module file used to alter some behaviors.
  */
 
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Database\Database;
+use Drupal\Core\Render\Markup;
+use Drupal\file\Entity\File;
+use Drupal\views\ViewExecutable;
 use Drupal\webform\WebformSubmissionInterface;
 use Civi\Api4\Group;
 use Civi\Api4\GroupContact;
@@ -78,12 +83,128 @@ function designermakers_webform_submission_insert(WebformSubmissionInterface $we
 /**
  * Implements hook_install().
  */
-function designermakers_update_8002() {
+function designermakers_update_8003() {
   // Dropping useless index on update
   try {
     $connection = \Drupal::database();
-    $connection->query('ALTER TABLE civicrm_value_product_7 DROP INDEX unique_entity_id');
+    $connection->query('ALTER TABLE civicrm_value_product_8 DROP INDEX unique_entity_id');
   } catch (Exception $exception) {
     Drupal::logger('designermakers')->error('Error occured during database update: @error', ['@error' => $exception->getMessage()]);
   }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function designermakers_views_pre_render(ViewExecutable $view) {
+  if ($view->id() == 'designer_makers' && $view->current_display == 'page_1') {
+    // Define the custom SQL query.
+    $connection = Database::getConnection();
+    $query = $connection->select('civicrm_contact', 'cc')
+      ->fields('cc', ['id', 'first_name', 'last_name'])
+      ->fields('cvp', [
+        'business_logo_32',
+        'tag_line_33',
+        'product_images_34',
+        'description_35',
+        'art_category_36'
+      ]);
+
+    $query->leftJoin('civicrm_value_product_8', 'cvp', 'cc.id = cvp.entity_id');
+    $query->condition('cc.contact_type', 'Individual');
+    $query->isNotNull('cvp.art_category_36');
+
+    $results = $query->execute()->fetchAll();
+
+    // Store results in a static variable to access them in hook_preprocess_views_view_field.
+    $mapped_results = [];
+    foreach ($results as $result) {
+      $mapped_results[$result->id][] = $result;
+    }
+    \Drupal::state()->set('designer_makers_custom_query_results', $mapped_results);
+
+    // Log the custom query and results for debugging.
+    \Drupal::logger('designermakers')->debug('Custom SQL query: @query', ['@query' => (string) $query]);
+    \Drupal::logger('designermakers')->debug('Custom query results: @results', ['@results' => print_r($results, TRUE)]);
+  }
+
+
+  if ($view->storage->id() == 'designer_makers' && $view->current_display == 'page_1') {
+    // Get the custom query results.
+    $results = \Drupal::state()->get('designer_makers_custom_query_results', []);
+    $products = [];
+
+    if (!empty($results)) {
+      foreach ($results as $designer_maker) {
+        foreach ($designer_maker as $product) {
+          $products[] = $product;
+        }
+      }
+    }
+
+    // Assign products to view rows.
+    foreach ($view->result as $index => $row) {
+      if (isset($products[$index])) {
+        $view->result[$index]->_product = $products[$index];
+      }
+    }
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_views_view_field().
+ */
+function designermakers_preprocess_views_view_field(&$variables) {
+  $view = $variables['view'];
+  $field = $variables['field'];
+  $row = $variables['row'];
+
+  // Check if this is the correct view and display.
+  if ($view->storage->id() == 'designer_makers' && $view->current_display == 'page_1') {
+    // Get the product assigned to this row.
+    if (isset($row->_product)) {
+      $product = $row->_product;
+
+      switch ($field->field) {
+        case 'first_name':
+          $variables['output'] = $product->first_name;
+          break;
+        case 'last_name':
+          $variables['output'] = $product->last_name;
+          break;
+        case 'business_logo_32':
+          $variables['output'] = render_image($product->business_logo_32);
+          break;
+        case 'tag_line_33':
+          $variables['output'] = $product->tag_line_33;
+          break;
+        case 'product_images_34':
+          $variables['output'] = render_image($product->product_images_34);
+          break;
+        case 'description_35':
+          $variables['output'] = $product->description_35;
+          break;
+        case 'art_category_36':
+          $variables['output'] = $product->art_category_36;
+          break;
+        case 'nothing':
+          $variables['output'] = Markup::create('<a href="#" class="designer-maker-link" data-id="' . Html::escape($product->id) . '">View Details</a>');
+          break;
+
+      }
+    }
+  }
+}
+
+/**
+ * Helper function to render an image from a file ID.
+ */
+function render_image($file_id) {
+  if ($file = File::load($file_id)) {
+    $uri = $file->getFileUri();
+    $url = $file->createFileUrl($uri);
+    return Markup::create('<img src="' . Html::escape($url) . '" alt="" />');
+  }
+  return '';
 }
