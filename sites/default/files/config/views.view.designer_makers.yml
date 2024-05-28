@@ -6,9 +6,8 @@ dependencies:
     - system.menu.main
   module:
     - civicrm_entity
-    - datetime
+    - file
     - options
-    - user
 id: designer_makers
 label: 'Designer Makers'
 module: views
@@ -80,7 +79,7 @@ display:
           type: number_integer
           settings:
             thousand_separator: ''
-            prefix_suffix: false
+            prefix_suffix: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -221,400 +220,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        city:
-          id: city
-          table: civicrm_address
-          field: city
-          relationship: reverse__civicrm_address__contact_id
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_address
-          entity_field: city
-          plugin_id: field
-          label: City
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        birth_date:
-          id: birth_date
-          table: civicrm_contact
-          field: birth_date
+        art_category_36:
+          id: art_category_36
+          table: civicrm_value_product_8
+          field: art_category_36
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: civicrm_contact
-          entity_field: birth_date
-          plugin_id: field
-          label: 'Birth Date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: datetime_default
-          settings:
-            timezone_override: ''
-            format_type: medium
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        tag_line_28:
-          id: tag_line_28
-          table: civicrm_value_product_7
-          field: tag_line_28
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_contact
-          entity_field: custom_28
-          plugin_id: civicrm_entity_custom_field
-          label: 'Tag Line'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          type: string
-          settings:
-            link_to_entity: 0
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: 0
-        description_30:
-          id: description_30
-          table: civicrm_value_product_7
-          field: description_30
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_contact
-          entity_field: custom_30
-          plugin_id: civicrm_entity_custom_field
-          label: Description
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          type: basic_string
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: 0
-        business_logo_27:
-          id: business_logo_27
-          table: civicrm_value_product_7
-          field: business_logo_27
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_contact
-          entity_field: custom_27
-          plugin_id: civicrm_entity_custom_field
-          label: 'Business Logo'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          type: string
-          settings:
-            link_to_entity: 0
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: 0
-        product_images_29:
-          id: product_images_29
-          table: civicrm_value_product_7
-          field: product_images_29
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_contact
-          entity_field: custom_29
-          plugin_id: civicrm_entity_custom_field
-          label: 'Product Images'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          type: string
-          settings:
-            link_to_entity: 0
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: 0
-        art_category_31:
-          id: art_category_31
-          table: civicrm_value_product_7
-          field: art_category_31
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_contact
-          entity_field: custom_31
+          entity_field: custom_36
           plugin_id: civicrm_entity_custom_field
           label: 'Art Category'
           exclude: false
@@ -657,7 +271,262 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          type: civicrm_entity_custom_multi_value
+          settings:
+            separator: ', '
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: 0
+        description_35:
+          id: description_35
+          table: civicrm_value_product_8
+          field: description_35
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_contact
+          entity_field: custom_35
+          plugin_id: civicrm_entity_custom_field
+          label: Description
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: 0
+        tag_line_33:
+          id: tag_line_33
+          table: civicrm_value_product_8
+          field: tag_line_33
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_contact
+          entity_field: custom_33
+          plugin_id: civicrm_entity_custom_field
+          label: 'Tag Line'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
           type: string
+          settings:
+            link_to_entity: 0
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: 0
+        business_logo_32:
+          id: business_logo_32
+          table: civicrm_value_product_8
+          field: business_logo_32
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_contact
+          entity_field: custom_32
+          plugin_id: civicrm_entity_custom_field
+          label: 'Business Logo'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: file_filemime
+          settings:
+            link_to_entity: 1
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: 0
+        product_images_34:
+          id: product_images_34
+          table: civicrm_value_product_8
+          field: product_images_34
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_contact
+          entity_field: custom_34
+          plugin_id: civicrm_entity_custom_field
+          label: 'Product Images'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: file_link
           settings:
             link_to_entity: 0
           group_column: value
@@ -753,39 +622,17 @@ display:
       cache:
         type: tag
         options: {  }
-      empty: {  }
-      sorts:
-        birth_date:
-          id: birth_date
-          table: civicrm_contact
-          field: birth_date
+      empty:
+        messages:
+          id: messages
+          table: views
+          field: messages
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: civicrm_contact
-          entity_field: birth_date
-          plugin_id: datetime
-          order: ASC
-          expose:
-            label: 'Birth Date'
-            field_identifier: birth_date
-          exposed: true
-          granularity: second
-        last_name:
-          id: last_name
-          table: civicrm_contact
-          field: last_name
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_contact
-          entity_field: last_name
-          plugin_id: standard
-          order: ASC
-          expose:
-            label: 'Last Name'
-            field_identifier: last_name
-          exposed: true
+          plugin_id: messages
+          empty: true
+      sorts: {  }
       arguments: {  }
       filters:
         contact_type:
@@ -831,62 +678,53 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-        art_category_31:
-          id: art_category_31
-          table: civicrm_value_product_7
-          field: art_category_31
+        art_category_36:
+          id: art_category_36
+          table: civicrm_value_product_8
+          field: art_category_36
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: civicrm_contact
-          entity_field: custom_31
-          plugin_id: string
-          operator: '='
-          value: ''
+          entity_field: custom_36
+          plugin_id: civicrm_entity_in_operator
+          operator: in
+          value:
+            all: all
+            painting: painting
+            sculpture: sculpture
+            photography: photography
+            digital_art: digital_art
+            mixed_media: mixed_media
           group: 1
-          exposed: true
+          exposed: false
           expose:
-            operator_id: art_category_31_op
-            label: 'Art Category'
+            operator_id: ''
+            label: ''
             description: ''
             use_operator: false
-            operator: art_category_31_op
+            operator: ''
             operator_limit_selection: false
             operator_list: {  }
-            identifier: art_category_31
+            identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-            placeholder: ''
-          is_grouped: true
+            reduce: false
+          is_grouped: false
           group_info:
-            label: 'Art Category'
+            label: ''
             description: ''
-            identifier: art_category_31
+            identifier: ''
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items:
-              1:
-                title: ''
-                operator: '='
-                value: ''
-              2:
-                title: ''
-                operator: '='
-                value: ''
-              3:
-                title: ''
-                operator: '='
-                value: ''
+            group_items: {  }
       style:
         type: table
         options:
@@ -894,61 +732,18 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            display_name: display_name
-            city: city
-            postal_code: postal_code
-            state_province_id: state_province_id
-            street_address: street_address
-            birth_date: birth_date
-            first_name: first_name
+            id: id
             last_name: last_name
-            middle_name: middle_name
-            email: email
+            first_name: first_name
+            art_category_36: art_category_36
+            description_35: description_35
+            tag_line_33: tag_line_33
+            business_logo_32: business_logo_32
+            product_images_34: product_images_34
+            nothing: nothing
           default: '-1'
           info:
-            display_name:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            city:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            postal_code:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            state_province_id:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            street_address:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            birth_date:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            first_name:
+            id:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -962,21 +757,54 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            middle_name:
+            first_name:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            email:
+            art_category_36:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-          override: true
+            description_35:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            tag_line_33:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            business_logo_32:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            product_images_34:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nothing:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: false
           sticky: false
           summary: ''
           empty_table: false
@@ -992,55 +820,9 @@ display:
           distinct: false
           replica: false
           query_tags: {  }
-      relationships:
-        reverse__civicrm_address__contact_id:
-          id: reverse__civicrm_address__contact_id
-          table: civicrm_contact
-          field: reverse__civicrm_address__contact_id
-          relationship: none
-          group_type: group
-          admin_label: Address
-          entity_type: civicrm_contact
-          plugin_id: civicrm_entity_reverse_location
-          required: false
-          location_type: '0'
-          is_billing: 0
-          is_primary: 0
-        reverse__civicrm_email__contact_id:
-          id: reverse__civicrm_email__contact_id
-          table: civicrm_contact
-          field: reverse__civicrm_email__contact_id
-          relationship: none
-          group_type: group
-          admin_label: Email
-          entity_type: civicrm_contact
-          plugin_id: civicrm_entity_reverse_location
-          required: false
-          location_type: '0'
-          is_billing: 0
-          is_primary: 0
-        civicrm_group:
-          id: civicrm_group
-          table: civicrm_contact
-          field: civicrm_group
-          relationship: none
-          group_type: group
-          admin_label: 'CiviCRM group'
-          entity_type: civicrm_contact
-          plugin_id: civicrm_entity_civicrm_group_contact
-          required: false
-        user:
-          id: user
-          table: civicrm_contact
-          field: user
-          relationship: none
-          group_type: group
-          admin_label: User
-          entity_type: civicrm_contact
-          plugin_id: civicrm_entity_civicrm_contact_user
-          required: false
-          domain_id: {  }
-      use_ajax: true
+      relationships: {  }
+      use_ajax: false
+      group_by: false
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -1049,10 +831,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
       tags: {  }
   page_1:
     id: page_1
@@ -1073,8 +852,5 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
       tags: {  }
