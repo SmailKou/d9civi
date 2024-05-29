@@ -49,6 +49,7 @@ class ProductSubmissionService {
       $this->logger->debug('Webform submission values: @values', ['@values' => print_r($values, TRUE)]);
 
       $product_fields = [
+        'entity_id' => $contact_id,
         'business_logo_32' => $values['civicrm_1_contact_1_cg8_custom_32'],
         'tag_line_33' => $values['civicrm_1_contact_1_cg8_custom_33'],
         'product_images_34' => $values['civicrm_1_contact_1_cg8_custom_34'],
@@ -56,14 +57,14 @@ class ProductSubmissionService {
         'art_category_36' => $values['civicrm_1_contact_1_cg8_custom_36'],
       ];
 
-      // Insert a new record into the civicrm_value_product_8 table
+      // Insert a new product record
       $connection = Database::getConnection();
       $connection->insert('civicrm_value_product_8')
-        ->fields(array_merge(['entity_id' => $contact_id], $product_fields))
+        ->fields($product_fields)
         ->execute();
 
-      $this->logger->info('Product data submitted for user ID: @uid', ['@uid' => $user_id]);
-      \Drupal::messenger()->addStatus(t('Product data submitted for Designer Maker: @uid', ['@uid' => $user_id]));
+      $this->logger->info('Created product data for Designer Maker: @dmid', ['@dmid' => $contact_id]);
+      \Drupal::messenger()->addStatus(t('Created product data for Designer Maker: @dmid', ['@dmid' => $contact_id]));
 
     } catch (CiviCRM_API3_Exception $e) {
       $this->logger->error('CiviCRM API Error: @message', ['@message' => $e->getMessage()]);
