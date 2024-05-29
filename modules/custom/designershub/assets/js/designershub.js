@@ -13,8 +13,6 @@
             var modalContent = '<div class="designer-maker-details">';
             modalContent += '<h2>' + data.display_name + '</h2>';
             modalContent += '<p><strong>Email:</strong> ' + data.email + '</p>';
-            modalContent += '<p><strong>Phone:</strong> ' + data.phone + '</p>';
-            modalContent += '<p><strong>Address:</strong> ' + data.address + '</p>';
             modalContent += '<a href="/designer-makers/' + data.id + '">Visit full profile</a>';
             modalContent += '</div>';
 
