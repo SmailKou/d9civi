@@ -54,21 +54,31 @@ function designermakers_webform_submission_insert(WebformSubmissionInterface $we
       $contact_id = $data['civicrm_1_contact_1_contact_contact_id'];
 
       // Retrieve the "Designer Makers" group ID
-      $group = Group::get()
+      $group = \Civi\Api4\Group::get()
         ->addWhere('title', '=', 'Designer Makers')
         ->execute();
 
       if ($group->count() > 0) {
         $group_id = $group[0]['id'];
 
-        // Add the contact to the "Designer Makers" group
-        GroupContact::create()
-          ->addValue('contact_id', $contact_id)
-          ->addValue('group_id', $group_id)
-          ->addValue('status', 'Added')
+        // Check if the contact is already in the "Designer Makers" group
+        $group_contact = \Civi\Api4\GroupContact::get()
+          ->addWhere('contact_id', '=', $contact_id)
+          ->addWhere('group_id', '=', $group_id)
           ->execute();
 
-        \Drupal::messenger()->addMessage('The individual has been added to the Designer Makers group.');
+        if ($group_contact->count() == 0) {
+          // Add the contact to the "Designer Makers" group
+          \Civi\Api4\GroupContact::create()
+            ->addValue('contact_id', $contact_id)
+            ->addValue('group_id', $group_id)
+            ->addValue('status', 'Added')
+            ->execute();
+
+          \Drupal::messenger()->addMessage('The individual has been added to the Designer Makers group.');
+        } else {
+          \Drupal::messenger()->addMessage('The individual is already a member of the Designer Makers group.');
+        }
       } else {
         \Drupal::logger('designermakers')->error('Designer Makers group not found.');
         \Drupal::messenger()->addMessage('Error: Designer Makers group not found.', 'error');
@@ -78,6 +88,7 @@ function designermakers_webform_submission_insert(WebformSubmissionInterface $we
       \Drupal::messenger()->addMessage('Error: No contact ID found in the form submission.', 'error');
     }
   }
+
 }
 
 /**
